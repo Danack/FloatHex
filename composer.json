@@ -1,0 +1,37 @@
+{
+    "name": "danack/hex-float",
+    "description": "Float to hex strings, hex strings to floats.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danack",
+            "email": "Danack@basereality.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
+        "psr-0": {
+            "HexFloat\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "HexFloatTest\\": "test/"
+        }
+    },
+    "require": {
+        "php" : "^7.1"
+    },
+    "require-dev": {
+        "danack/coding-standard": "0.2.0",
+        "infection/infection": "^0.15.3",
+        "phpunit/phpunit": "9.0.1",
+        "phpstan/phpstan-strict-rules": "^0.11",
+        "slevomat/coding-standard": "^4.8.4",
+        "squizlabs/php_codesniffer": "^3.3.1",
+        "yoast/yoastcs": "1.0"
+    }
+}

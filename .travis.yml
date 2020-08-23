@@ -1,0 +1,19 @@
+dist: trusty
+
+language: php
+
+php:
+  - "7.4"
+  - "7.3"
+  - "7.2"
+  - "7.1"
+
+before_script:
+  - composer install
+
+script:
+  - bash runCodeSniffer.sh
+  - bash runUnitTests.sh
+
+notifications:
+  email: false

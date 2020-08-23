@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset name="Danack">
+    <description>Customised coding standard for the testing code.</description>
+    <arg name="tab-width" value="4"/>
+
+    <exclude-pattern>*migrations*</exclude-pattern>
+
+    <exclude-pattern>*test/phpunit_bootstrap.php</exclude-pattern>
+
+
+    <rule ref="PSR2">
+        <!-- Need to find a way to turn this off for text, before re-enabling -->
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+
+        <!-- I just don't agree with these. -->
+        <exclude name="PSR2.ControlStructures.ElseIfDeclaration"/>
+        <exclude name="Squiz.ControlStructures.ElseIfDeclaration"/>
+
+        <!-- it's fine for test methods to have underscores for clarity -->
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+
+
+        <!-- TODO make this be newline -->
+        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
+
+        <!-- This makes co-ordinate pairs hard to read -->
+        <exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments" />
+    </rule>
+
+    <rule ref="vendor/danack/coding-standard/lib/Danack/Sniffs/PHPUnit/MissingCoversSniff.php">
+    </rule>
+
+
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>*test_stub_functions.php</exclude-pattern>
+        <exclude-pattern>functions.php</exclude-pattern>
+    </rule>
+
+
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+        <property
+                name="ignoreIndentationTokens" type="array"
+                value="T_GOTO_LABEL,T_COMMENT,T_DOC_COMMENT_OPEN_TAG"
+        />
+        </properties>
+    </rule>
+
+    <rule ref="../vendor/yoast/yoastcs/Yoast/Sniffs/ControlStructures/IfElseDeclarationSniff.php"/>
+</ruleset>
