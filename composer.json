@@ -1,6 +1,6 @@
 {
-    "name": "danack/hex-float",
-    "description": "Float to hex strings, hex strings to floats.",
+    "name": "danack/float-hex",
+    "description": "Float to hex strings, and float comparison.",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -14,12 +14,12 @@
             "src/functions.php"
         ],
         "psr-0": {
-            "HexFloat\\": "src/"
+            "FloatHex\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-0": {
-            "HexFloatTest\\": "test/"
+            "FloatHexTest\\": "test/"
         }
     },
     "require": {

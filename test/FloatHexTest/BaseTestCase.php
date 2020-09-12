@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace HexFloatTest;
+namespace FloatHexTest;
 
 use PHPUnit\Framework\TestCase;
 

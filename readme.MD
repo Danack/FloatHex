@@ -9,9 +9,9 @@ Functions for converting float to a hex-string and back again, and also for show
 <?php
 require __DIR__ . "/vendor/autoload.php";
 
-use function HexFloat\floathex;
-use function HexFloat\floathex32;
-use function HexFloat\float_compare;
+use function FloatHex\floathex;
+use function FloatHex\floathex32;
+use function FloatHex\float_compare;
 
 $value = 1.2345;
 

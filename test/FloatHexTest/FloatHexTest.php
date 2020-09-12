@@ -2,20 +2,20 @@
 
 declare(strict_types = 1);
 
-namespace HexFloatTest;
+namespace FloatHexTest;
 
-use function HexFloat\floathex;
-use function HexFloat\floathex32;
-use function HexFloat\float_info;
-use function HexFloat\float_info_32;
-use function HexFloat\float_compare;
-use function HexFloat\float_compare_32;
+use function FloatHex\floathex;
+use function FloatHex\floathex32;
+use function FloatHex\float_info;
+use function FloatHex\float_info_32;
+use function FloatHex\float_compare;
+use function FloatHex\float_compare_32;
 
 
 /**
  * @coversNothing
  */
-class HexFloatTest extends BaseTestCase
+class FloatHexTest extends BaseTestCase
 {
     public function provides64BitTests()
     {
@@ -99,10 +99,6 @@ class HexFloatTest extends BaseTestCase
         $info2 = float_info(100000001);
         $this->assertStringContainsString($info2->getExponent(), $contents);
         $this->assertStringContainsString($info2->getMantissa(), $contents);
-
-//        echo "\n";
-//        echo $contents;
-//        exit(0);
     }
 
 
@@ -117,9 +113,5 @@ class HexFloatTest extends BaseTestCase
         $info2 = float_info_32(100000001);
         $this->assertStringContainsString($info2->getExponent(), $contents);
         $this->assertStringContainsString($info2->getMantissa(), $contents);
-
-//        echo "\n";
-//        echo $contents;
-//        exit(0);
     }
 }

@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 require __DIR__ . "/vendor/autoload.php";
 
-use function HexFloat\floathex;
-use function HexFloat\floathex32;
-use function HexFloat\float_compare;
-use function HexFloat\float_compare_32;
+use function FloatHex\floathex;
+use function FloatHex\floathex32;
+use function FloatHex\float_compare;
+use function FloatHex\float_compare_32;
 
 $value = 1.2345;
 

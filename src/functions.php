@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace HexFloat;
+namespace FloatHex;
 
 /**
  * Returns a string containing a hexadecimal representation of the given float,
