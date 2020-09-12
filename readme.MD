@@ -1,10 +1,17 @@
 # HexFloat
 
+Functions for converting float to a hex-string and back again, and also for showing two floating point numbers as a binary representation.
 
+
+## Example
 
 ```php
 <?php
 require __DIR__ . "/vendor/autoload.php";
+
+use function HexFloat\floathex;
+use function HexFloat\floathex32;
+use function HexFloat\float_compare;
 
 $value = 1.2345;
 
@@ -14,19 +21,42 @@ echo floathex($value) . "\n";
 echo floathex32($value) . "\n";
 // Output: 3f9e0419
 
-
-
 echo float_compare(1.2345, 1.234500000001);
 // Output:
 // ┌──────┬─────────────┬──────────────────────────────────────────────────────┐
 // │ Sign │ Exponent    │ Mantissa                                             │
 // │    0 │ 01111111111 │ 0011110000001000001100010010011011101001011110001101 │
 // │    0 │ 01111111111 │ 0011110000001000001100010010011011101010100100100101 │
+// │    - │ ----------- │ --------------------------------------xxxxx-x-x-x--- │
 // └──────┴─────────────┴──────────────────────────────────────────────────────┘
 
 ```
 
+## Why?
+
+Some of the tests in Imagick compare floats, and trying to figure out if the float is off by a rounding error, or by a larger amount was annoying.
+
+Comparing the bits makes it easier to see what is going on visually. e.g. for comparing 0.3 with 0.1 + 0.2: 
+
+```php
+<?php
+
+echo float_compare(0.3, 0.1 + 0.2);
+
+```
+
+The output is:
+┌──────┬─────────────┬──────────────────────────────────────────────────────┐
+│ Sign │ Exponent    │ Mantissa                                             │
+│    0 │ 01111111101 │ 0011001100110011001100110011001100110011001100110011 │
+│    0 │ 01111111101 │ 0011001100110011001100110011001100110011001100110100 │
+│    - │ ----------- │ -------------------------------------------------xxx │
+└──────┴─────────────┴──────────────────────────────────────────────────────┘
+
+Straight away, you can see that the difference between the numbers is in the lowest bit.
+
+hexfloat and 
 
 ## TODO 
 
-Doesn't support NANs or infs
+Check behaviour around NANs and INFs

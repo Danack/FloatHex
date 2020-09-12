@@ -2,8 +2,7 @@
 
 declare(strict_types = 1);
 
-use HexFloat\FloatInfo;
-use HexFloat\Float32Info;
+namespace HexFloat;
 
 /**
  * Returns a string containing a hexadecimal representation of the given float,
@@ -124,6 +123,23 @@ function float_info_32(float $num): Float32Info
     );
 }
 
+
+function compare_strings(string $s1, string $s2) {
+    $result = '';
+
+    $letters1 = str_split($s1);
+    $letters2 = str_split($s2);
+    for ($i = 0; $i < count($letters1) && $i < count($letters2) ; $i += 1) {
+        if ($letters1[$i] === $letters2[$i]) {
+            $result .= '-';
+        }
+        else {
+            $result .= 'x';
+        }
+    }
+    return $result;
+};
+
 /**
  * Produce a debug string that shows the Sign, Exponent and Mantissa for
  * two floating point numbers, using 64bit precision
@@ -136,8 +152,9 @@ function float_info_32(float $num): Float32Info
  * Example result
  * ┌──────┬─────────────┬──────────────────────────────────────────────────────┐
  * │ Sign │ Exponent    │ Mantissa                                             │
- * │    0 │ 01111111011 │ 1001100110011001100110011001100110011001100110011010 │
- * │    0 │ 10000011001 │ 0111110101111000010000000100000000000000000000000000 │
+ * │    0 │ 01111111101 │ 0011001100110011001100110011001100110011001100110011 │
+ * │    0 │ 01111111101 │ 0011001100110011001100110011001100110011001100110100 │
+ * │    - │ ----------- │ -------------------------------------------------xxx │
  * └──────┴─────────────┴──────────────────────────────────────────────────────┘
  *
  */
@@ -150,13 +167,18 @@ function float_compare(float $value1, float $value2): string
     //Exponent: 11 bits
     //Significand precision: 53 bits (52 explicitly stored)
 
-    $output  = "┌──────┬─────────────┬──────────────────────────────────────────────────────┐\n";
-    $output .= "│ Sign │ Exponent    │ Mantissa                                             │\n";
+    $output  =            "┌──────┬─────────────┬──────────────────────────────────────────────────────┐\n";
+    $output .=            "│ Sign │ Exponent    │ Mantissa                                             │\n";
 
-    $format_string = "│    %s │ %s │ %s │\n";
+    $format_string      = "│    %s │ %s │ %s │\n";
+
+    $compareSign = compare_strings($float_info_1->getSign(), $float_info_2->getSign());
+    $compareExponent = compare_strings($float_info_1->getExponent(), $float_info_2->getExponent());
+    $compareMantissa = compare_strings($float_info_1->getMantissa(), $float_info_2->getMantissa());
 
     $output .= sprintf($format_string, $float_info_1->getSign(), $float_info_1->getExponent(), $float_info_1->getMantissa());
     $output .= sprintf($format_string, $float_info_2->getSign(), $float_info_2->getExponent(), $float_info_2->getMantissa());
+    $output .= sprintf($format_string, $compareSign, $compareExponent, $compareMantissa);
 
     $output .= "└──────┴─────────────┴──────────────────────────────────────────────────────┘\n";
 
@@ -175,8 +197,9 @@ function float_compare(float $value1, float $value2): string
  * Example result
  * ┌──────┬──────────┬─────────────────────────┐
  * │ Sign │ Exponent │ Mantissa                │
- * │    0 │ 01111011 │ 10011001100110011001101 │
- * │    0 │ 10011001 │ 01111101011110000100000 │
+ * │    0 │ 01111101 │ 00110011001100110011010 │
+ * │    0 │ 01111110 │ 00000000000000000000000 │
+ * │    - │ ------xx │ --xx--xx--xx--xx--xx-x- │
  * └──────┴──────────┴─────────────────────────┘
  *
  */
@@ -185,6 +208,11 @@ function float_compare_32(float $value1, float $value2): string
     $float_info_1 = float_info_32($value1);
     $float_info_2 = float_info_32($value2);
 
+    $compareSign = compare_strings($float_info_1->getSign(), $float_info_2->getSign());
+    $compareExponent = compare_strings($float_info_1->getExponent(), $float_info_2->getExponent());
+    $compareMantissa = compare_strings($float_info_1->getMantissa(), $float_info_2->getMantissa());
+
+
     $output  = "┌──────┬──────────┬─────────────────────────┐\n";
     $output .= "│ Sign │ Exponent │ Mantissa                │\n";
 
@@ -192,6 +220,7 @@ function float_compare_32(float $value1, float $value2): string
 
     $output .= sprintf($format_string, $float_info_1->getSign(), $float_info_1->getExponent(), $float_info_1->getMantissa());
     $output .= sprintf($format_string, $float_info_2->getSign(), $float_info_2->getExponent(), $float_info_2->getMantissa());
+    $output .= sprintf($format_string, $compareSign, $compareExponent, $compareMantissa);
 
     $output .= "└──────┴──────────┴─────────────────────────┘\n";
 

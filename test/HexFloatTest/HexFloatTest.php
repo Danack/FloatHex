@@ -4,6 +4,14 @@ declare(strict_types = 1);
 
 namespace HexFloatTest;
 
+use function HexFloat\floathex;
+use function HexFloat\floathex32;
+use function HexFloat\float_info;
+use function HexFloat\float_info_32;
+use function HexFloat\float_compare;
+use function HexFloat\float_compare_32;
+
+
 /**
  * @coversNothing
  */
