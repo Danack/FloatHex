@@ -11,7 +11,6 @@ use function FloatHex\float_info_32;
 use function FloatHex\float_compare;
 use function FloatHex\float_compare_32;
 
-
 /**
  * @coversNothing
  */
