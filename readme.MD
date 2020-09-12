@@ -1,7 +1,8 @@
-# HexFloat
+# FloatHex
 
 Functions for converting float to a hex-string and back again, and also for showing two floating point numbers as a binary representation.
 
+[![Build Status](https://travis-ci.org/Danack/FloatHex.svg?branch=master)](https://travis-ci.org/Danack/FloatHex)
 
 ## Example
 
@@ -46,16 +47,17 @@ echo float_compare(0.3, 0.1 + 0.2);
 ```
 
 The output is:
+```
 ┌──────┬─────────────┬──────────────────────────────────────────────────────┐
 │ Sign │ Exponent    │ Mantissa                                             │
 │    0 │ 01111111101 │ 0011001100110011001100110011001100110011001100110011 │
 │    0 │ 01111111101 │ 0011001100110011001100110011001100110011001100110100 │
 │    - │ ----------- │ -------------------------------------------------xxx │
 └──────┴─────────────┴──────────────────────────────────────────────────────┘
-
+```
 Straight away, you can see that the difference between the numbers is in the lowest bit.
 
-hexfloat and 
+hexfloat and floathex32 might be useful for people who need to 
 
 ## TODO 
 
