@@ -23,9 +23,9 @@ function floathex(float $number): string
  * @param float $number
  * @return string
  */
-function floathex32(float $num): string
+function floathex32(float $number): string
 {
-    return strrev(unpack('h*', pack('f', $num))[1]);
+    return strrev(unpack('h*', pack('f', $number))[1]);
 }
 
 /**
@@ -35,9 +35,9 @@ function floathex32(float $num): string
  * @param float $num
  * @return FloatInfo
  */
-function float_info(float $num) : FloatInfo
+function float_info(float $number) : FloatInfo
 {
-    $float64 = floathex($num);
+    $float64 = floathex($number);
 
     //Sign bit: 1 bit
     //Exponent: 11 bits
@@ -82,12 +82,12 @@ function float_info(float $num) : FloatInfo
  * which contains string representations of the float's sign,
  * exponent and mantissa
  *
- * @param float $num
+ * @param float $number
  * @return Float32Info
  */
-function float_info_32(float $num): Float32Info
+function float_info_32(float $number): Float32Info
 {
-    $float32 = floathex32($num);
+    $float32 = floathex32($number);
     $chars = str_split($float32);
 
     // 3 bits from this
@@ -124,12 +124,13 @@ function float_info_32(float $num): Float32Info
 }
 
 
-function compare_strings(string $s1, string $s2) {
+function compare_strings(string $string1, string $string2)
+{
     $result = '';
 
-    $letters1 = str_split($s1);
-    $letters2 = str_split($s2);
-    for ($i = 0; $i < count($letters1) && $i < count($letters2) ; $i += 1) {
+    $letters1 = str_split($string1);
+    $letters2 = str_split($string2);
+    for ($i = 0; $i < count($letters1) && $i < count($letters2); $i += 1) {
         if ($letters1[$i] === $letters2[$i]) {
             $result .= '-';
         }
