@@ -16,6 +16,24 @@ function floathex(float $number): string
     return strrev(unpack('h*', pack('d', $number))[1]);
 }
 
+
+/**
+ * Given a hexadecimal string representing a 64 bit float,
+ * will return that float.
+ *
+ * @param string $string
+ * @return float
+ */
+function hexfloat(string $string): float
+{
+    $blah = pack('h*', strrev($string));
+
+    $result = unpack('d', $blah);
+
+    return $result[1];
+}
+
+
 /**
  * Returns a string containing a hexadecimal representation of the given float,
  * using 32 bits of info
@@ -26,6 +44,23 @@ function floathex(float $number): string
 function floathex32(float $number): string
 {
     return strrev(unpack('h*', pack('f', $number))[1]);
+}
+
+
+/**
+ * Given a hexadecimal string representing a 32 bit float,
+ * will return that float.
+ *
+ * @param string $string
+ * @return float
+ */
+function hexfloat32(string $string): float
+{
+    $unpacked = pack('h*', strrev($string));
+
+    $result = unpack('f', $unpacked);
+
+    return $result[1];
 }
 
 /**
@@ -44,7 +79,6 @@ function float_info(float $number) : FloatInfo
     //Significand precision: 53 bits (52 explicitly stored)
 
     $chars = str_split($float64);
-
 
     // 3 bits from this
     $byte1 = hexdec($chars[0]);

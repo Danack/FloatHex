@@ -61,4 +61,5 @@ hexfloat and floathex32 might be useful for people who need to
 
 ## TODO 
 
-Check behaviour around NANs and INFs
+* Check behaviour around NANs and INFs
+* Error detection on bad input strings.
