@@ -57,7 +57,7 @@ The output is:
 ```
 Straight away, you can see that the difference between the numbers is in the lowest bit.
 
-hexfloat and floathex32 might be useful for people who need to 
+hexfloat and floathex32 might be useful for people who need to transfer floats precisely over text channels.  
 
 ## TODO 
 
