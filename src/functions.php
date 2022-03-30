@@ -35,6 +35,48 @@ function hexfloat(string $string): float
 
 
 /**
+ * Returns a string containing a binary representation of the given float,
+ * using 64 bits of info
+ *
+ * @param float $number
+ * @return string
+ */
+function floatbin(float $number): string
+{
+    $packed = pack('d', $number);
+    $unpacked = unpack('h*', $packed);
+    $hex = $unpacked[1];
+
+    $in_order = strrev($hex);
+    $binary = base_convert($in_order, 16, 2);
+    $binary_padded = str_pad($binary, 64, '0', STR_PAD_LEFT);
+
+    return $binary_padded;
+}
+
+
+/**
+ * Given a binary string representing a 64 bit float,
+ * will return that float.
+ *
+ * Example:
+ *
+ * $x = binfloat('0100000000000000000000000000000000000000000000000000000000000000')
+ * ($x === 2) is true
+ *
+ * @param string $string
+ * @return float
+ */
+function binfloat(string $string): float
+{
+    $hex = base_convert($string, 2, 16);
+    $hex_padded = str_pad($hex, 16, '0', STR_PAD_LEFT);
+
+    return hexfloat($hex_padded);
+}
+
+
+/**
  * Returns a string containing a hexadecimal representation of the given float,
  * using 32 bits of info
  *

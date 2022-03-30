@@ -59,6 +59,18 @@ Straight away, you can see that the difference between the numbers is in the low
 
 hexfloat and floathex32 might be useful for people who need to transfer floats precisely over text channels.  
 
+
+## Exact float value
+
+If you want to see the exact value that a float is stored as, this can be done with `number_format`.    
+
+```
+echo number_format(1.22,  64);
+
+// Output is:
+// 1.2199999999999999733546474089962430298328399658203125000000000000
+```
+
 ## TODO 
 
 * Check behaviour around NANs and INFs

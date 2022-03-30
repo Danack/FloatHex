@@ -12,6 +12,8 @@ use function FloatHex\float_compare;
 use function FloatHex\float_compare_32;
 use function FloatHex\hexfloat;
 use function FloatHex\hexfloat32;
+use function FloatHex\binfloat;
+use function FloatHex\floatbin;
 
 /**
  * @coversNothing
@@ -35,6 +37,14 @@ class FloatHexTest extends BaseTestCase
 
         yield [-11111.0,    'c0c5b38000000000', '1', '10000001100',  '0101101100111000000000000000000000000000000000000000'];
         yield [100000001.0, '4197d78404000000', '0', '10000011001',  '0111110101111000010000000100000000000000000000000000'];
+
+        yield [
+            6.44114876959713330822703650337E-232,
+            '0ff0000000000000',
+            '0',
+            '00011111111',
+            '0000000000000000000000000000000000000000000000000000'
+        ];
     }
 
     /**
@@ -62,6 +72,89 @@ class FloatHexTest extends BaseTestCase
     public function test_hexfloat($expectedNumber, $hexInput, $signExpected, $exponentExpected, $mantissaExpected)
     {
         $number = hexfloat($hexInput);
+
+        $this->assertSame($expectedNumber, $number);
+    }
+
+
+    public function provides64BitBinFloatTests()
+    {
+        // taken from https://www.binaryconvert.com/result_double.html?decimal=049048048048048048048048049
+
+        //     float        Bin expected,     sign, exponent,       Mantissa
+        yield [
+            0.0,
+            '0000000000000000000000000000000000000000000000000000000000000000',
+            '0', '00000000000',  '0000000000000000000000000000000000000000000000000000'
+        ];
+        yield [
+            1.0,
+            '0011111111110000000000000000000000000000000000000000000000000000',
+            '0', '01111111111',  '0000000000000000000000000000000000000000000000000000'
+        ];
+        yield [
+            2.0,
+            '0100000000000000000000000000000000000000000000000000000000000000',
+            '0', '10000000000',  '0000000000000000000000000000000000000000000000000000'
+        ];
+
+        yield [
+            0.1,
+            '0011111110111001100110011001100110011001100110011001100110011010',
+            '0', '01111111011',  '1001100110011001100110011001100110011001100110011010'
+        ];
+        yield [
+            0.25,
+            '0011111111010000000000000000000000000000000000000000000000000000',
+            '0', '01111111101',  '0000000000000000000000000000000000000000000000000000'
+        ];
+        yield [
+            0.5,
+            '0011111111100000000000000000000000000000000000000000000000000000',
+            '0', '01111111110', '0000000000000000000000000000000000000000000000000000'
+        ];
+
+        yield [
+            -1.0,
+            '1011111111110000000000000000000000000000000000000000000000000000',
+            '1', '01111111111',  '0000000000000000000000000000000000000000000000000000'
+        ];
+
+        yield [
+            -11111.0,
+            '1100000011000101101100111000000000000000000000000000000000000000',
+            '1', '10000001100',  '0101101100111000000000000000000000000000000000000000'];
+        yield [
+            100000001.0,
+            '0100000110010111110101111000010000000100000000000000000000000000',
+            '0', '10000011001',  '0111110101111000010000000100000000000000000000000000'];
+    }
+
+
+    /**
+     * @dataProvider provides64BitBinFloatTests
+     * @covers ::FloatHex\floathex
+     */
+    public function test_floatbin($input, $expectedBin, $signExpected, $exponentExpected, $mantissaExpected)
+    {
+        $result = floatbin($input);
+
+        $this->assertSame($result, $expectedBin);
+
+        $floatInfo = float_info($input);
+
+        $this->assertSame($signExpected, $floatInfo->getSign());
+        $this->assertSame($exponentExpected, $floatInfo->getExponent());
+        $this->assertSame($mantissaExpected, $floatInfo->getMantissa());
+    }
+
+    /**
+     * @dataProvider provides64BitBinFloatTests
+     * @covers ::FloatHex\hexfloat
+     */
+    public function test_binfloat($expectedNumber, $binInput, $signExpected, $exponentExpected, $mantissaExpected)
+    {
+        $number = binfloat($binInput);
 
         $this->assertSame($expectedNumber, $number);
     }
